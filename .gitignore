@@ -9,6 +9,6 @@ outputs
 # Log files for colab-convert
 cc-outputs.log
 *.mp4
-scripts/deforum_helpers/src/rife/inference_video - latestnotworkingpy
+scripts/deforum_helpers/rife/inference_video - latestnotworkingpy
 *.png
-scripts/deforum_helpers/src/rife/test.py
+scripts/deforum_helpers/rife/test.py

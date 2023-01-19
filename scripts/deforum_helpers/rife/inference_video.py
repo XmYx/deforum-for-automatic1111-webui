@@ -73,26 +73,29 @@ def run_video_infer(video=None,
         try:
             # JUST A TEST GONNA BE REMOVED
             print("TRYING TO RUN RIFE 4.0!!!!!!!!!!!!!!!!!!!!!!")
-            from .RIFE40.arch.RIFE_HDv3 import Model
+            from RIFE40.arch.RIFE_HDv3 import Model
         except:
             #print(os.getcwd())
             print("RIFE V4.0 could not be found. Please contact deforum support.")
+            return
             #torch.set_default_tensor_type(previous_torch_tensor_type)
     elif args.modelDir == "RIFE46":
         try:
             #print(os.getcwd())
             print("TRYING TO RUN RIFE 4.6!!!!!!!!!!!!!!!!!!!!!!")
-            from .RIFE46.RIFE_HDv3 import Model
+            from RIFE46.RIFE_HDv3 import Model
             #torch.set_default_tensor_type(previous_torch_tensor_type)
         except:
             #print(os.getcwd())
             print("RIFE V4.6 could not be found. Please contact deforum support.")
+            return
             #torch.set_default_tensor_type(previous_torch_tensor_type)
     elif args.modelDir == "RIFE43":
         try:
-            from .RIFE43.RIFE_HDv3 import Model
+            from RIFE43.RIFE_HDv3 import Model
         except:
             print("RIFE V4.3 could not be found. Please contact deforum support.")
+            return
             #torch.set_default_tensor_type(previous_torch_tensor_type)
     else:
         print("Got a request to frame-interpolate but no valid frame interpolation engine value provided. Doing... nothing.")

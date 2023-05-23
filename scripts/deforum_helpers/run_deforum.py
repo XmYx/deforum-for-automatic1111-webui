@@ -73,7 +73,11 @@ def run_deforum(*args):
                 if anim_args.use_mask_video: 
                     render_animation_with_video_mask(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root)  # allow mask video without an input video
                 else:    
-                    render_animation(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root)
+                    if args.engine == "external-test":
+                        render_animation_with_module(args, anim_args, video_args, parseq_args, loop_args,
+                                                     controlnet_args, root)
+                    else:
+                        render_animation(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root)
             elif anim_args.animation_mode == 'Video Input':
                 render_input_video(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root)#TODO: prettify code
             elif anim_args.animation_mode == 'Interpolation':

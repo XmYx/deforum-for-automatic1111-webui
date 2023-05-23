@@ -19,6 +19,7 @@ def create_gr_elem(d):
 def get_tab_run(d, da):
     with gr.TabItem('Run'):  # RUN TAB
         with FormRow():
+            engine = create_gr_elem(d.engine)
             sampler = create_gr_elem(d.sampler)
             steps = create_gr_elem(d.steps)
         with FormRow():

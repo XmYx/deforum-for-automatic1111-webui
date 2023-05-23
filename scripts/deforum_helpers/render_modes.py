@@ -45,7 +45,10 @@ def render_input_video(args, anim_args, video_args, parseq_args, loop_args, cont
         args.use_mask = True
         args.overlay_mask = True
 
-    render_animation(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root)
+    if args.engine == "external-test":
+        render_animation_with_module(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root)
+    else:
+        render_animation(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root)
 
 # Modified a copy of the above to allow using masking video with out a init video.
 def render_animation_with_video_mask(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root):
@@ -64,7 +67,10 @@ def render_animation_with_video_mask(args, anim_args, video_args, parseq_args, l
     #args.use_init = True
     print(f"Loading {anim_args.max_frames} input frames from {mask_in_frame_path} and saving video frames to {args.outdir}")
 
-    render_animation(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root)
+    if args.engine == "external-test":
+        render_animation_with_module(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root)
+    else:
+        render_animation(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root)
 
 def get_parsed_value(value, frame_idx, max_f):
     pattern = r'`.*?`'
@@ -156,3 +162,30 @@ def render_interpolation(args, anim_args, video_args, parseq_args, loop_args, co
             args.seed = next_seed(args, root)
 
         frame_idx += 1
+
+
+def render_animation_with_module(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root):
+    from deforum.main import Deforum
+    deforum = Deforum(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root, opts, state)
+    deforum.generate = generate
+    deforum.datacallback = datacallback
+    deforum.handle_controlnet = handle_controlnet
+    deforum.save_settings_from_animation_run = save_settings_from_animation_run
+    success = deforum(callback=None)
+    root.initial_info = deforum.root.initial_info
+    root.first_frame = deforum.root.first_frame
+
+def handle_controlnet(args, anim_args, controlnet_args):
+    if is_controlnet_enabled(controlnet_args):
+        unpack_controlnet_vids(args, anim_args, controlnet_args)
+
+def datacallback(data):
+    if "job" in data:
+        state.job = data["job"]
+        state.job_no = data["job_no"]
+    elif "ui" in data:
+        if data["ui"] == "handle_vram":
+            print("Deforum VRAM Callback")
+    elif "image" in data:
+        state.current_image = data["image"]
+

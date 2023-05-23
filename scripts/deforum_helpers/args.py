@@ -889,6 +889,13 @@ def DeforumArgs():
             "value": 10,
             "info": ""
         },
+        "engine": {
+            "label": "Engine",
+            "type": "radio",
+            "choices": ['internal', 'external-test'],
+            "value": "internal",
+            "info": ""
+        },
     }
 
 def LoopArgs():

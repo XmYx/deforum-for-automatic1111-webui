@@ -13,6 +13,8 @@ from .animation_key_frames import DeformAnimKeys
 from .parseq_adapter import ParseqAnimKeys
 from .save_images import save_image
 from .settings import save_settings_from_animation_run
+from .deforum_controlnet import unpack_controlnet_vids, is_controlnet_enabled
+
 
 def render_input_video(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root):
     # create a folder for the video input frames to live in

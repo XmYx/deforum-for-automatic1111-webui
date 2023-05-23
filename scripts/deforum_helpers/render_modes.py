@@ -167,7 +167,7 @@ def render_interpolation(args, anim_args, video_args, parseq_args, loop_args, co
 
 
 def render_animation_with_module(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root):
-    from deforum.main import Deforum
+    from .src.deforum.main import Deforum
     deforum = Deforum(args, anim_args, video_args, parseq_args, loop_args, controlnet_args, root, opts, state)
     deforum.generate = generate
     deforum.datacallback = datacallback

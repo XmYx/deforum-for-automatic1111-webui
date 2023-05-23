@@ -10,7 +10,8 @@ def deforum_sys_extend():
     for _ in basedirs:
         deforum_paths_to_ensure = [
             os.path.join(deforum_folder_name, 'scripts'),
-            os.path.join(deforum_folder_name, 'scripts', 'deforum_helpers', 'src')
+            os.path.join(deforum_folder_name, 'scripts', 'deforum_helpers', 'src'),
+            os.path.join(deforum_folder_name, 'scripts', 'deforum_helpers', 'src', 'deforum')
         ]
         for deforum_scripts_path_fix in deforum_paths_to_ensure:
             if deforum_scripts_path_fix not in sys.path:

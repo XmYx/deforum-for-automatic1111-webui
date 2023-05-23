@@ -64,7 +64,7 @@ def run_deforum(*args):
         
         # Import them *here* or we add 3 seconds to initial webui launch-time. user doesn't feel it when we import inside the func:
         from .render import render_animation
-        from .render_modes import render_input_video, render_animation_with_video_mask, render_interpolation
+        from .render_modes import render_input_video, render_animation_with_video_mask, render_interpolation, render_animation_with_module
 
         tqdm_backup = shared.total_tqdm
         shared.total_tqdm = DeforumTQDM(args, anim_args, parseq_args, video_args)
